@@ -20,14 +20,13 @@
     }
   </script>
   <script id="fragmentShader" type="x-shader/x-fragment">
-
-    uniform float time;
-  void main() {
-    vec2 screenCoords = gl_FragCoord.xy;
-    vec2 normalizedCoords = screenCoords / vec2(700, 700);
-    vec3 color = vec3(sin(time + 0.2), sin(time + 0.7), sin(time + 0.7));
-    gl_FragColor = vec4(color, 1.0);
-  }
+    uniform float rayDistance;
+    void main() {
+        vec2 pixelCoord = gl_FragCoord.xy;
+        vec2 normalizedCoords = pixelCoord / vec2(700, 700);
+        vec3 color = vec3(normalizedCoords.x, normalizedCoords.y - 0.002, rayDistance);
+        gl_FragColor = vec4(color, 1.0);
+    }
   </script>
 
     <script src="index.js" type="module"></script>

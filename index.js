@@ -19,7 +19,7 @@ const grayMaterial = new THREE.MeshLambertMaterial({ color: 0xCCCCCC });
 const colorUniform = { value: new THREE.Color(1,1,1) } 
 const boxMaterial = new THREE.ShaderMaterial({
     uniforms: {
-        time: { value: 0.0 }
+        rayDistance: { value: 0 } 
     },
     vertexShader: document.getElementById("vertexShader").textContent,
     fragmentShader: document.getElementById("fragmentShader").textContent
@@ -71,17 +71,25 @@ scene.add(lightSource);
 
 // now the juicy juicy stuff starts
 const BOUNCE_LIMIT = 1;
-var raycaster = new THREE.Raycaster();
-raycaster.set(camera.position, camera.getWorldDirection());
+// var raycaster = new THREE.Raycaster();
+// raycaster.set(camera.position, camera.getWorldDirection());
 
+var TIMESTAMP = 0;
 const tick = () => {
     requestAnimationFrame(tick);
-    
-    boxMaterial.uniforms.time.value += 0.01;
-    var intersects = (raycaster.intersectObjects(scene.children, false));
+    TIMESTAMP += 1;
 
     // since a fragment shader runs for every pixel, we'll probably use that to create the 
     // ray tracing effect.
+
+    // Shoot out (width * times) rays which will fry your computer
+    for (var y = 0; y < height; y++) {
+        for (var x = 0; x < width; x++) {
+            // TODO
+            // Shoot out 490,000 fucking rays
+            // and fry your PC
+        }
+    }
     
     renderer.render(scene, camera);
 };
